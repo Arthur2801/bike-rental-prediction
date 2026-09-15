@@ -6,28 +6,28 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-EC6B23?style=flat-square)
 
-Un TP de data science réalisé à l'UTT : explorer **17 379 observations horaires** et prédire le nombre de vélos loués (`cnt`) à partir de l'heure, du calendrier et de la météo.
+Analyse de **17 379 relevés horaires** pour estimer le nombre de vélos loués (`cnt`) à partir du calendrier et des conditions météo. Le [notebook](notebooks/bike_rental_analysis.ipynb) présente le travail complet ; le [rapport illustré](report/analysis.md) permet d'en lire les principaux résultats directement sur GitHub.
 
-Le [notebook réalisé](notebooks/TP_velo_realise.ipynb) réunit l'analyse des données, les visualisations, une exploration K-Means/ACP, une variable d'heure de pointe et la comparaison de modèles de régression. Le [rendu HTML](report/TP_velo_realise.html) conserve la version remise ; le notebook éditable a été reconstitué à partir de ce rendu. Le [CSV](data/velo.csv) provient du ZIP fourni pour le TP.
+- **Data engineering** : ingestion du [CSV](data/velo.csv), contrôle des données manquantes, imputation, encodage des catégories et création d'indicateurs de jours ouvrés et d'heures de pointe.
+- **Exploration** : visualisations de la demande selon l'heure, la saison et la météo, puis segmentation K-Means et ACP sur les variables météo.
+- **Modélisation** : régression linéaire comme référence, XGBoost, régularisation L2 et optimisation des hyperparamètres avec FLAML.
 
-![Nombre moyen de locations selon l'heure et le jour de la semaine](assets/locations-par-heure.png)
+![Locations selon l'heure et le jour de la semaine](assets/locations-par-heure.png)
 
-Les jours ouvrés montrent deux pics de demande, vers 8 h et 17–18 h ; le profil du week-end est différent.
+Les jours ouvrés présentent deux pics de demande, vers 8 h et 17–18 h ; le profil du week-end est différent.
 
 | Modèle | R² sur `log(cnt)` | RMSE en vélos |
 | --- | ---: | ---: |
 | Régression linéaire | 0,8056 | 103,75 |
 | XGBoost | 0,9086 | 71,08 |
-| XGBoost avec régularisation L2 | 0,9112 | 70,67 |
-| XGBoost ajusté avec FLAML | 0,9250 | 67,91 |
+| XGBoost + régularisation L2 | 0,9112 | 70,67 |
+| XGBoost optimisé avec FLAML | 0,9250 | 67,91 |
 
-Ces chiffres proviennent de l'exécution vérifiée du notebook. FLAML peut trouver d'autres paramètres et scores selon la durée de sa recherche ; le rendu HTML archivé indiquait 0,9284 et 65,33 pour ce modèle. Le test utilise une séparation aléatoire des observations ; pour prévoir des heures futures, une validation chronologique donnerait une estimation plus réaliste.
+Ces scores proviennent de l'exécution du notebook sur un test aléatoire de 20 %. La recherche FLAML est limitée à 120 secondes et peut varier d'une exécution à l'autre. Pour prévoir des heures futures, une validation chronologique et une imputation ajustée seulement sur l'entraînement donneraient une évaluation plus fiable.
 
-Pour ouvrir le notebook :
+Pour reproduire l'analyse avec Python 3.12, depuis la racine du dépôt :
 
 ```bash
 python -m pip install -r requirements.txt
-jupyter lab notebooks/TP_velo_realise.ipynb
+jupyter lab notebooks/bike_rental_analysis.ipynb
 ```
-
-Python 3.12 est le choix de l'environnement utilisé pour le TP. Lancez Jupyter depuis la racine du dépôt afin que le chemin vers `data/velo.csv` fonctionne.
