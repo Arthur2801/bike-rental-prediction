@@ -6,7 +6,7 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-EC6B23?style=flat-square)
 
-Analyse de **17 379 relevés horaires** pour estimer le nombre de vélos loués (`cnt`) à partir du calendrier et des conditions météo. Le [notebook](notebooks/bike_rental_analysis.ipynb) présente le travail complet ; le [rapport illustré](report/analysis.md) permet d'en lire les principaux résultats directement sur GitHub.
+Analyse de **17 379 relevés horaires** pour estimer le nombre de vélos loués (`cnt`) à partir du calendrier et des conditions météo. Le [notebook complet](notebooks/bike_rental_analysis.ipynb) rassemble la préparation des données, les graphiques, les modèles et leurs résultats ; il est lisible directement sur GitHub.
 
 - **Data engineering** : ingestion du [CSV](data/velo.csv), contrôle des données manquantes, imputation, encodage des catégories et création d'indicateurs de jours ouvrés et d'heures de pointe.
 - **Exploration** : visualisations de la demande selon l'heure, la saison et la météo, puis segmentation K-Means et ACP sur les variables météo.
