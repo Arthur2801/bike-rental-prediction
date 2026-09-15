@@ -1,0 +1,4 @@
+*.md text eol=lf
+*.ipynb text eol=lf
+*.html text eol=lf
+data/velo.csv -text
